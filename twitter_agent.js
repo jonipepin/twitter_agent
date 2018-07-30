@@ -10,13 +10,15 @@ var tweetArray;
 var lastQueryTime = 0;
 
 var saveTweets = function(data) {
-  fs.writeFile("./tweets.json", data, function(err) {
-      if(err) {
-          return console.log(err);
-      }
-      tweetArray = data;
-      console.log("Tweets saved!");
-  });
+  if(data){
+    // fs.writeFile("./tweets.json", data, function(err) {
+    //     if(err) {
+    //         return console.log(err);
+    //     }
+        tweetArray = data;
+        console.log("Tweets saved!");
+    // });
+  }
 }
 
 var search = function(queryCount=25) {
