@@ -28,7 +28,7 @@ var search = function(queryCount=25) {
 
   var params = {
     q: '#androidsummit, @androidsummit',
-    result_type: 'recent',
+    //result_type: 'recent',
     count: queryCount,
     lang: 'en'
   }
