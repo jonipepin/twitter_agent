@@ -6,6 +6,7 @@
  * access_token_secret
  */
 module.exports = {
+  port: 10000,
   consumer_key: '',
   consumer_secret: '',
   access_token: '',

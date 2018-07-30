@@ -74,6 +74,6 @@ app.get('/twitter', function(req, res) {
 });
 
 
-app.listen(8080, function() {
-  console.log('Example app listening on port 8080!');
+app.listen(config.port, function() {
+  console.log('Example app listening on port ' + config.port);
 });
