@@ -54,7 +54,7 @@ app.get('/', (req, res) => res.status(200).send(
   {message: 'This is not the API you\'re looking for'}
 ));
 
-app.get('/twitter', function(req, res) {
+app.get('/androidsummit/twitter', function(req, res) {
 
   var token = req.headers['x-api-key'];
 
