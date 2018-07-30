@@ -1,0 +1,15 @@
+{
+  "name": "twitter_agent",
+  "version": "1.0.0",
+  "description": "microservice for fetching twitter feed",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Joni Pepin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "twit": "^2.2.11"
+  }
+}
