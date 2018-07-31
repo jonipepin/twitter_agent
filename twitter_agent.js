@@ -62,10 +62,14 @@ app.get('/', (req, res) => res.status(200).send(
 app.get('/androidsummit/twitter', function(req, res) {
 
   var token = req.headers['x-api-key'];
+  var count = 25;
+  if(req.query.count){
+    count = req.query.count;
+  }
 
   // validate token
   if (token === config.api_token) {
-    search();
+    search(count);
     res.status(200).json(tweetArray);
   } else {
     // if there is no token
