@@ -9,7 +9,7 @@ var Twitter = new twit(config);
 var tweetArray;
 var lastQueryTime = 0;
 
-var saveTweets = function(data) {
+function saveTweets(data) {
   if(data){
     // fs.writeFile("./tweets.json", data, function(err) {
     //     if(err) {
@@ -21,7 +21,7 @@ var saveTweets = function(data) {
   }
 }
 
-var search = function(queryCount=25) {
+function search(queryCount=25) {
   var timeElapsed = Date.now() - lastQueryTime;
   console.log('Time Elapsed: ' + timeElapsed);
   if(timeElapsed < 5000){
@@ -62,13 +62,13 @@ app.get('/', (req, res) => res.status(200).send(
 app.get('/androidsummit/twitter', function(req, res) {
 
   var token = req.headers['x-api-key'];
-  var count = 25;
-  if(req.query.count){
-    count = req.query.count;
-  }
 
   // validate token
   if (token === config.api_token) {
+    var count = 25;
+    if(req.query.count){
+      count = req.query.count;
+    }
     search(count);
     res.status(200).json(tweetArray);
   } else {
