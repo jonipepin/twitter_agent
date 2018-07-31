@@ -23,7 +23,7 @@ var saveTweets = function(data) {
 
 var search = function(queryCount=25) {
   var timeElapsed = Date.now() - lastQueryTime;
-  console.log('TIme Elapsed: ' + timeElapsed);
+  console.log('Time Elapsed: ' + timeElapsed);
   if(timeElapsed < 5000){
     return;
   }
@@ -84,5 +84,5 @@ app.get('/androidsummit/twitter', function(req, res) {
 
 
 app.listen(config.port, function() {
-  console.log('Example app listening on port ' + config.port);
+  console.log('Twitter agent listening on port ' + config.port);
 });
