@@ -32,6 +32,7 @@ var search = function(queryCount=25) {
     q: '#androidsummit, @androidsummit',
     //result_type: 'recent',
     count: queryCount,
+    tweet_mode: 'extended',
     lang: 'en'
   }
 
@@ -42,6 +43,7 @@ var search = function(queryCount=25) {
           saveTweets(data);
           tweetArray = data;
           lastQueryTime = Date.now();
+
         }
         // if unable to Search a tweet
         else {
