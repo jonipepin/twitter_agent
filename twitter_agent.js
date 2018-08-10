@@ -29,7 +29,7 @@ function search(queryCount=25) {
   }
 
   var params = {
-    q: 'androidsummit -filter:retweets',
+    q: 'androidsummit -filter:retweets -filter:replies',
     //result_type: 'recent',
     count: queryCount,
     tweet_mode: 'extended',
