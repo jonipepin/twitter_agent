@@ -6,30 +6,33 @@ var app         = express();
 
 var Twitter = new twit(config);
 
-var tweetArray;
-var lastQueryTime = 0;
+var tweetArray = new Object();
 
-function saveTweets(data) {
+function saveTweets(data, queryString) {
   if(data){
     // fs.writeFile("./tweets.json", data, function(err) {
     //     if(err) {
     //         return console.log(err);
     //     }
-        tweetArray = data;
+        tweetArray[queryString] = {'content': data, 'lastQueryTime': Date.now()};
         console.log("Tweets saved!");
     // });
   }
 }
 
-function search(queryCount=25) {
+function search(queryCount=25, queryString) {
+  return new Promise(function(resolve, reject) {
+
+
+  var lastQueryTime = tweetArray[queryString] ? tweetArray[queryString]['lastQueryTime'] : 0;
   var timeElapsed = Date.now() - lastQueryTime;
   console.log('Time Elapsed: ' + timeElapsed);
   if(timeElapsed < 5000){
-    return;
+    resolve(tweetArray[queryString]['content']);
   }
 
   var params = {
-    q: 'androidsummit -filter:retweets -filter:replies',
+    q: queryString + ' -filter:retweets -filter:replies',
     //result_type: 'recent',
     count: queryCount,
     tweet_mode: 'extended',
@@ -40,19 +43,18 @@ function search(queryCount=25) {
       // if there no errors
         if (!err) {
           //console.log(data);
-          saveTweets(data);
-          tweetArray = data;
-          lastQueryTime = Date.now();
-
+          saveTweets(data, queryString);
+          resolve(data);
         }
         // if unable to Search a tweet
         else {
           console.log('Something went wrong while SEARCHING...');
         }
     });
+  });
 }
 
-search();
+// search();
 //setInterval(search, 5000);
 
 app.get('/', (req, res) => res.status(200).send(
@@ -62,6 +64,7 @@ app.get('/', (req, res) => res.status(200).send(
 app.get('/androidsummit/twitter', function(req, res) {
 
   var token = req.headers['x-api-key'];
+  var queryString = req.query.queryString || 'androidsummit';
 
   // validate token
   if (token === config.api_token) {
@@ -69,8 +72,11 @@ app.get('/androidsummit/twitter', function(req, res) {
     if(req.query.count){
       count = req.query.count;
     }
-    search(count);
-    res.status(200).json(tweetArray);
+
+    search(count, queryString).then(function(data) {
+      res.status(200).json(tweetArray[queryString]['content']);
+    });
+
   } else {
     // if there is no token
     // return an error
