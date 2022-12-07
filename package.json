@@ -9,7 +9,7 @@
   "author": "Joni Pepin",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.18.2",
     "twit": "^2.2.11"
   }
 }
